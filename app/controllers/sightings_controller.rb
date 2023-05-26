@@ -28,7 +28,6 @@ class SightingsController < ApplicationController
         end
     end
     
-    
     def update
         sighting = Sighting.find(params[:id])
         Sighting.update(sighting_params)

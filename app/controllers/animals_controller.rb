@@ -5,11 +5,16 @@ class AnimalsController < ApplicationController
         render json: animals
     end
 
-    def show
-        animal = Animal.find(params[:id])
-        render json: animal
-    end
+    # def show
+    #     animal = Animal.find(params[:id])
+    #     render json: animal
+    # end
 
+    def show
+        animal = Animal.find_by(id: params[:id])
+        render json: animal, include: [:animal, :sighting]
+    end
+    
     def create
         animal = Animal.create(animal_params)
         if animal.valid?
@@ -40,7 +45,7 @@ class AnimalsController < ApplicationController
     
     private
     def animal_params
-        params.require(:animal).permit(:common_name, :binomial)
+        params.require(:animal).permit(:common_name, :binomial, :animals)
     end    
 
 end
